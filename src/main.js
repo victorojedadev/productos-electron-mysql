@@ -3,11 +3,32 @@ const { getConnection } = require('./database');
 
 let window;
 
-async function getProducts(product) {
+const getProducts = async () => {
     const conn = await getConnection();
-    const results = await conn.query('select * from producto');
+    const results = await conn.query("SELECT * FROM producto ORDER BY id DESC");
     return results;
-}
+};
+
+const deleteProduct = async (id) => {
+    const conn = await getConnection();
+    const result = await conn.query("DELETE FROM producto WHERE id = ?", id);
+    return result;
+};
+
+const getProductById = async (id) => {
+    const conn = await getConnection();
+    const result = await conn.query("SELECT * FROM producto WHERE id = ?", id);
+    return result[0];
+};
+
+const updateProduct = async (id, product) => {
+    const conn = await getConnection();
+    const result = await conn.query("UPDATE producto SET nombre = ?, descripcion = ?, precio = ? WHERE id = ?", [
+        product.name, product.description, product.price, id]);
+};
+
+
+
 
 async function createProduct(product) {
     try {
@@ -38,4 +59,4 @@ function createWindow() {
     window.loadFile('src/ui/index.html');
 }
 
-module.exports = { createWindow, createProduct, getProducts };
+module.exports = { createWindow, createProduct, getProducts, getProductById, updateProduct, deleteProduct };

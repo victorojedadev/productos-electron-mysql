@@ -6,7 +6,10 @@ const productName = document.getElementById("name");
 const productPrice = document.getElementById("price");
 const productDescription = document.getElementById("description");
 const productsList = document.getElementById("products");
+
 let products = [];
+let editingStatus = false;
+let editProductId;
 
 
 const getProducts = async () => {
@@ -14,11 +17,30 @@ const getProducts = async () => {
     renderProducts(products);
 }
 
+const deleteProduct = async (id) => {
+    const response = confirm("Are you sure you want to delete it?");
+    if (response) {
+        await main.deleteProduct(id);
+        await getProducts();
+    }
+    return;
+};
+
+const editProduct = async (id) => {
+    const product = await main.getProductById(id);
+    productName.value = product.nombre;
+    productPrice.value = product.precio;
+    productDescription.value = product.descripcion;
+
+    editingStatus = true;
+    editProductId = id;
+};
+
 function renderProducts(p) {
     productsList.innerHTML = '';
     p.forEach(product => {
         productsList.innerHTML += `
-        <div class="card card-body my-2">
+        <div class="card card-body my-2 animated fadeInLeft">
             <h4>${product.nombre}</h4>
             <p>${product.descripcion}</p>
             <h3>${product.precio}$</h3>
@@ -49,7 +71,19 @@ productForm.addEventListener('submit', async (e) => {
         description: productDescription.value
     };
 
-    const result = await main.createProduct(newProduct);
+    if (!editingStatus) {
+        const savedProduct = await main.createProduct(newProduct);
+    } else {
+        const productUpdated = await main.updateProduct(editProductId, newProduct);
+
+        // Resetea
+        editingStatus = false;
+        editProductId = "";
+    }
+
+    productForm.reset();
+    productName.focus();
+    getProducts();
 
 });
 
