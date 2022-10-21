@@ -13,33 +13,33 @@ let editProductId;
 
 
 const getProducts = async () => {
-    products = await main.getProducts();
-    renderProducts(products);
+  products = await main.getProducts();
+  renderProducts(products);
 }
 
 const deleteProduct = async (id) => {
-    const response = confirm("Are you sure you want to delete it?");
-    if (response) {
-        await main.deleteProduct(id);
-        await getProducts();
-    }
-    return;
+  const response = confirm("Are you sure you want to delete it?");
+  if (response) {
+    await main.deleteProduct(id);
+    await getProducts();
+  }
+  return;
 };
 
 const editProduct = async (id) => {
-    const product = await main.getProductById(id);
-    productName.value = product.nombre;
-    productPrice.value = product.precio;
-    productDescription.value = product.descripcion;
+  const product = await main.getProductById(id);
+  productName.value = product.nombre;
+  productPrice.value = product.precio;
+  productDescription.value = product.descripcion;
 
-    editingStatus = true;
-    editProductId = id;
+  editingStatus = true;
+  editProductId = id;
 };
 
 function renderProducts(p) {
-    productsList.innerHTML = '';
-    p.forEach(product => {
-        productsList.innerHTML += `
+  productsList.innerHTML = '';
+  p.forEach(product => {
+    productsList.innerHTML += `
         <div class="card card-body my-2 animated fadeInLeft">
             <h4>${product.nombre}</h4>
             <p>${product.descripcion}</p>
@@ -55,35 +55,35 @@ function renderProducts(p) {
 
         </div>
         `;
-    });
+  });
 }
 
 async function init() {
-    await getProducts();
+  await getProducts();
 }
 
 productForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    const newProduct = {
-        name: productName.value,
-        price: productPrice.value,
-        description: productDescription.value
-    };
+  const newProduct = {
+    name: productName.value,
+    price: productPrice.value,
+    description: productDescription.value
+  };
 
-    if (!editingStatus) {
-        const savedProduct = await main.createProduct(newProduct);
-    } else {
-        const productUpdated = await main.updateProduct(editProductId, newProduct);
+  if (!editingStatus) {
+    const savedProduct = await main.createProduct(newProduct);
+  } else {
+    const productUpdated = await main.updateProduct(editProductId, newProduct);
 
-        // Resetea
-        editingStatus = false;
-        editProductId = "";
-    }
+    // Resetea
+    editingStatus = false;
+    editProductId = "";
+  }
 
-    productForm.reset();
-    productName.focus();
-    getProducts();
+  productForm.reset();
+  productName.focus();
+  getProducts();
 
 });
 

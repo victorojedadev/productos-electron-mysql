@@ -2,44 +2,44 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRUD Productos</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRUD Productos</title>
 
-    <link rel="stylesheet" href="bootstrap.min.css">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="bootstrap.min.css">
+  <link rel="stylesheet" href="app.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
 </head>
 
 <body>
-    <h1>Electron & MySql</h1>
-    <main class="container-fluid">
-        <div class="row">
-            <div class="col-md-6 my-auto p-4">
-                <form class="card card-body" id="productForm">
-                    <div class="form-group">
-                        <input type="text" name="name" id="name" placeholder="Producto" class="form-control" autofocus>
-                    </div>
-                    <div class="form-group">
-                        <input type="number" name="price" id="price" placeholder="Precio" class="form-control"
-                            step="any">
-                    </div>
-                    <div class="form-group">
-                        <textarea rows="3" name="description" id="description" placeholder="Descripción"
-                            class="form-control"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">
-                        Guardar
-                    </button>
-                </form>
-            </div>
-            <!-- Product List -->
-            <div class="col-md-6">
-                <div id="products"></div>
-            </div>
-        </div>
-    </main>
-    <script src="./app.js"></script>
+  <h1>Electron & MySql</h1>
+  <main class="container-fluid">
+    <div class="row">
+      <div class="col-md-6 my-auto p-4">
+        <form class="card card-body" id="productForm">
+          <div class="form-group">
+            <input type="text" name="name" id="name" placeholder="Producto" class="form-control" autofocus>
+          </div>
+          <div class="form-group">
+            <input type="number" name="price" id="price" placeholder="Precio" class="form-control" step="any">
+          </div>
+          <div class="form-group">
+            <textarea rows="3" name="description" id="description" placeholder="Descripción"
+              class="form-control">
+            </textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">
+            Guardar
+          </button>
+        </form>
+      </div>
+      <!-- Product List -->
+      <div class="col-md-6">
+        <div id="products"></div>
+      </div>
+    </div>
+  </main>
+  <script src="./app.js"></script>
 </body>
 
 </html>
